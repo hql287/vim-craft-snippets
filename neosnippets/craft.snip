@@ -45,7 +45,7 @@ snippet ceil
 abbr    Rounds a number up.
 options head
   {{ ceil(42.1) }}
-  {# Return 43}
+  {# Return 43 #}
 
 snippet floor
 abbr    Rounds a number down.
@@ -69,10 +69,10 @@ snippet round
 abbr    Rounds off a number to the closest integer.
 options head
   {{ round(42.1) }}
-  {# Return  42 #}
+  {# Return 42 #}
 
   {{ round(42.9) }}
-  {# Return => 43 #}
+  {# Return 43 #}
 
 snippet random
 abbr    Randomizes the order of the elements within an array.
@@ -243,14 +243,14 @@ options head
 # ============================================================================
 
 # Assets
-snippet assets
+snippet assetsField
 abbr    Output assets field content
 options head
   {% for asset in entry.assetsField %}
     {{ asset.url }}
   {% endfor %}
 
-snippet assets
+snippet assetsLoop
 abbr    craft.assets loop
 options head
   {% for image in craft.assets.kind('image') %}
@@ -258,7 +258,7 @@ options head
   {% endfor %}
 
 # Categories
-snippet cat
+snippet categories
 abbr    carft.categories loop
 options head
   {% for cat in craft.categories.group('catGroupHandle') %}

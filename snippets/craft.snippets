@@ -31,7 +31,7 @@ snippet gv_logout
 # ============================================================================
 snippet ceil  "Rounds a number up."
   {{ ceil(42.1) }}
-  {# Return 43}
+  {# Return 43 #}
 
 snippet floor "Rounds a number down."
   {{ floor(42.9) }}
@@ -50,7 +50,7 @@ snippet round "Rounds off a number to the closest integer."
   {# Return  42 #}
 
   {{ round(42.9) }}
-  {# Return => 43 #}
+  {# Return 43 #}
 
 snippet random "Randomizes the order of the elements within an array"
   {% set promos = shuffle(homepage.promos) %}
@@ -183,18 +183,18 @@ snippet sw "{% switch %}"
 # QUERYING ELEMENTS
 # ============================================================================
 # Assets
-snippet assets "Output assets field content"
+snippet assetsField "Output assets field content"
   {% for asset in entry.assetsField %}
     {{ asset.url }}
   {% endfor %}
 
-snippet assets "The craft.assets loop"
+snippet assetsLoop "The craft.assets loop"
   {% for image in craft.assets.kind('image') %}
     {{ image.getUrl('thumb') }}
   {% endfor %}
 
 # Categories
-snippet cat "carft.categories loop"
+snippet categories "carft.categories loop"
   {% for cat in craft.categories.group('catGroupHandle') %}
     <a href="{{ cat.url }}">{{ cat.title }}</a>
   {% endfor %}
