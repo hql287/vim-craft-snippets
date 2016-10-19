@@ -1,8 +1,269 @@
-# Craft snippets for Neosnippets
+# Craft CMS Snippets for Neosnippets
 # Maintainer: Quoc Hung Le <lequochung@me.com>
+
+# GLOBAL VARIABLES
+# ============================================================================
+snippet gv_now
+abbr    now
+options head
+  {{ now|date('M j, Y') }}
+
+snippet gv_siteName
+abbr    siteName
+options head
+  {{ siteName }}
+
+snippet gv_siteUrl
+abbr    siteUrl
+options head
+  <link rel="home" href="{{ siteUrl }}">
+
+snippet gv_currentUser
+abbr    currentUser
+options head
+  {% if currentUser %}
+    Welcome, {{ currentUser.friendlyName }}!
+  {% endif %}
+
+snippet gv_login
+abbr    loginUrl
+options head
+  {% if not currentUser %}
+    <a href="{{ loginUrl }}">Login</a>
+  {% endif %}
+
+snippet gv_logout
+abbr    logoutUrl
+options head
+  {% if currentUser %}
+    <a href="{{ logoutUrl }}">Logout</a>
+  {% endif %}
+
+# FUNCTIONS
+# ============================================================================
+snippet ceil
+abbr    Rounds a number up.
+options head
+  {{ ceil(42.1) }}
+  {# Return 43}
+
+snippet floor
+abbr    Rounds a number down.
+options head
+  {{ floor(42.9) }}
+  {# Return 42 #}
+
+snippet max
+abbr    Returns the largest number of a given set.
+options head
+  {{ max(1, 2, 3) }}
+  {# Return 3 #}
+
+snippet min
+abbr    Returns the smallest number of a given set.
+options head
+  {{ max(1, 2, 3) }}
+  {# Return 1 #}
+
+snippet round
+abbr    Rounds off a number to the closest integer.
+options head
+  {{ round(42.1) }}
+  {# Return  42 #}
+
+  {{ round(42.9) }}
+  {# Return => 43 #}
+
+snippet random
+abbr    Randomizes the order of the elements within an array.
+options head
+  {% set promos = shuffle(homepage.promos) %}
+  {% for promo in promos %}
+    {{ promo.title }}
+
+# FILTERS
+# ============================================================================
+snippet camel
+abbr    Returns a string formatted in 'camelCase'.
+options head
+  {{ "foo bar"|camel }}
+  {# Outputs: fooBar #}
+
+snippet kebab
+abbr    Returns a string formatted in 'kebab-case'.now
+options head
+  {{ "foo bar?"|kebab }}
+  {# Outputs: foo-bar #}
+
+snippet snake
+abbr    Returns a string formatted in 'snake_case'.
+options head
+  {{ "foo bar"|snake }}
+  {# Outputs: foo_bar #}
+
+snippet pascal
+abbr    Returns a string formatted in 'PascalCase' (AKA'UpperCamelCase').
+options head
+  {{ "foo bar"|pascal }}
+  {# Outputs: FooBar #}
+
+snippet md
+abbr    Processes a string with Markdown.
+options head
+  {{ content|md }}
+
+snippet replace
+abbr    Replaces parts of a string with other things.
+options head
+  {% set str = "Hello, FIRST LAST" %}
+
+  {{ str|replace({
+      FIRST: currentUser.firstName,
+      LAST:  currentUser.lastName
+  }) }}
+
+snippet currency
+abbr    currency( currency, stripZeroCents )
+options head
+  {# Formats a number with a given currency according to the user’s preferred language #}.
+  {{ 1000000|currency('USD') }}
+  {# Return $1,000,000.00 #}
+
+  {# If you pass true into the second argument, the “.00” will be stripped if there’s zero cents #}
+  {{ 1000000|currency('USD', true) }}
+  {# Return $1,000,000 #}
+
+snippet without
+abbr    Returns an array without the specified element(s).
+options head
+  {% set entries = craft.entries.section('articles').limit(3).find %}
+  {% set firstEntry = entries[0] %}
+  {% set remainingEntries = entries|without(firstEntry) %}
+
+# TODOS
+# snippet datetime
+# snippet filesize
+# snippet filter
+# snippet group
+
+# TEMPLATES TAGS
+# ============================================================================
+
+# Get Nth Segment
+snippet getSegment
+abbr    craft.request.getSegment()
+options head
+  {{ craft.request.getSegment(${1}) }}
+
+# Get First Segment
+snippet getFirstSegment
+abbr    craft.request.getFirstSegment()
+options head
+  {{ craft.request.getFirstSegment() }}
+
+# Get Last Segment
+snippet getLastSegment
+abbr    craft.request.getLastSegment()
+options head
+  {{ craft.request.getLastSegment() }}
+
+# Get Page Number
+snippet getPageNum
+abbr    craft.request.getPageNum()
+options head
+  {{ craft.request.getPageNum() }}
+
+# Get Full Path
+snippet getPath
+abbr    craft.request.getPath()
+options head
+  {{ craft.request.getPath() }}
+
+# Pagination
+snippet paginate
+abbr    Pagination tag {% paginate %}
+options head
+  {% paginate craft.entries.section('${1}').limit(${2}) as pageInfo, pageEntries %}
+
+  {% for entry in pageEntries %}
+    {{ entry.title }}
+    {{ entry.body }}
+  {% endfor %}
+
+  {% if pageInfo.prevUrl %}<a href="{{ pageInfo.prevUrl }}">Previous Page</a>{% endif %}
+  {% if pageInfo.nextUrl %}<a href="{{ pageInfo.nextUrl }}">Next Page</a>{% endif %}
+
+# Require Login
+snippet requireLogin
+abbr     Require Login
+options head
+  {# This tag will ensure that the user is logged in. If they aren’t, they will
+  be redirected to the Login page, and returned to the original page after
+  successfully logging in. #}
+  {% requireLogin %}
+
+# Require Permission
+snippet requirePermission
+abbr    Require Permission
+options head
+  {# This tag will ensure that the current user is logged in with an account that
+  has a given permission. Refernece: https://craftcms.com/docs/templating/requirepermission #}
+  {% requirePermission "${1}" %}
+
+# Redirect
+snippet redirect
+abbr    {% redirect %}
+options head
+ {% redirect "${1}" %}
+
+# Switch
+snippet sw
+abbr    {% switch %}
+options head
+  {% switch entry.type %}
+
+    {% case "${1}" %}
+        {{ ${2} }}
+
+    {% case "${3}" %}
+        {{ ${4} }}
+
+    {% default %}
+        {{ ${5} }}
+
+  {% endswitch %}
+
+# TODOS
+# Feed
+# Include
+# Matrix
+# Request
 
 # QUERYING ELEMENTS
 # ============================================================================
+
+# Assets
+snippet assets
+abbr    Output assets field content
+options head
+  {% for asset in entry.assetsField %}
+    {{ asset.url }}
+  {% endfor %}
+
+snippet assets
+abbr    craft.assets loop
+options head
+  {% for image in craft.assets.kind('image') %}
+    {{ image.getUrl('thumb') }}
+  {% endfor %}
+
+# Categories
+snippet cat
+abbr    carft.categories loop
+options head
+  {% for cat in craft.categories.group('catGroupHandle') %}
+    <a href="{{ cat.url }}">{{ cat.title }}</a>
+  {% endfor %
 
 # Entries
 snippet entries
@@ -11,3 +272,10 @@ options head
   {% for entry in craft.entries.section('${1}').limit(${2}) %}
     <a href="{{ entry.url }}">{{ entry.title }}</a>
   {% endfor %}
+
+# TODOS
+# Tags
+# Users
+
+# ADDTIONAL TAGS
+# ============================================================================
