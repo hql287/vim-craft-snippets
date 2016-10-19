@@ -1,0 +1,13 @@
+# Craft snippets for Neosnippets
+# Maintainer: Quoc Hung Le <lequochung@me.com>
+
+# QUERYING ELEMENTS
+# ============================================================================
+
+# Entries
+snippet entries
+abbr    craft.entries loop
+options head
+  {% for entry in craft.entries.section('${1}').limit(${2}) %}
+    <a href="{{ entry.url }}">{{ entry.title }}</a>
+  {% endfor %}

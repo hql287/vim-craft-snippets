@@ -1,0 +1,211 @@
+# Craft snippets
+# Maintainer: Quoc Hung Le <lequochung@me.com>
+
+# GLOBAL VARIABLES
+# ============================================================================
+snippet gv_now
+  {{ now|date('M j, Y') }}
+
+snippet gv_siteName
+  {{ siteName }}
+
+snippet gv_siteUrl
+  <link rel="home" href="{{ siteUrl }}">
+
+snippet gv_currentUser
+  {% if currentUser %}
+    Welcome, {{ currentUser.friendlyName }}!
+  {% endif %}
+
+snippet gv_login
+  {% if not currentUser %}
+    <a href="{{ loginUrl }}">Login</a>
+  {% endif %}
+
+snippet gv_logout
+  {% if currentUser %}
+    <a href="{{ logoutUrl }}">Logout</a>
+  {% endif %}
+
+# FUNCTIONS
+# ============================================================================
+snippet ceil  "Rounds a number up."
+  {{ ceil(42.1) }}
+  {# Return 43}
+
+snippet floor "Rounds a number down."
+  {{ floor(42.9) }}
+  {# Return 42 #}
+
+snippet max "Returns the largest number of a given set."
+  {{ max(1, 2, 3) }}
+  {# Return 3 #}
+
+snippet min "Returns the smallest number of a given set."
+  {{ max(1, 2, 3) }}
+  {# Return 1 #}
+
+snippet round "Rounds off a number to the closest integer."
+  {{ round(42.1) }}
+  {# Return  42 #}
+
+  {{ round(42.9) }}
+  {# Return => 43 #}
+
+snippet random "Randomizes the order of the elements within an array"
+  {% set promos = shuffle(homepage.promos) %}
+  {% for promo in promos %}
+    {{ promo.title }}
+  {% endfor %}
+
+# FILTERS
+# ============================================================================
+snippet camel "Returns a string formatted in 'camelCase'."
+  {{ "foo bar"|camel }}
+  {# Outputs: fooBar #}
+
+snippet kebab "Returns a string formatted in 'kebab-case'."
+  {{ "foo bar?"|kebab }}
+  {# Outputs: foo-bar #}
+
+snippet snake "Returns a string formatted in 'snake_case'."
+  {{ "foo bar"|snake }}
+  {# Outputs: foo_bar #}
+
+snippet pascal "Returns a string formatted in 'PascalCase' (AKA'UpperCamelCase')."
+  {{ "foo bar"|pascal }}
+  {# Outputs: FooBar #}
+
+snippet md "Processes a string with Markdown."
+  {{ content|md }}
+
+snippet replace " Replaces parts of a string with other things."
+  {% set str = "Hello, FIRST LAST" %}
+
+  {{ str|replace({
+      FIRST: currentUser.firstName,
+      LAST:  currentUser.lastName
+  }) }}
+
+snippet currency "currency( currency, stripZeroCents )"
+  {# Formats a number with a given currency according to the user’s preferred language #}.
+  {{ 1000000|currency('USD') }}
+  {# Return $1,000,000.00 #}
+
+  {# If you pass true into the second argument, the “.00” will be stripped if there’s zero cents #}
+  {{ 1000000|currency('USD', true) }}
+  {# Return $1,000,000 #}
+
+snippet withou "Returns an array without the specified element(s)."
+  {% set entries = craft.entries.section('articles').limit(3).find %}
+  {% set firstEntry = entries[0] %}
+  {% set remainingEntries = entries|without(firstEntry) %}
+
+snippet datetime
+snippet filesize
+snippet filter
+snippet group
+
+
+# TEMPLATES TAGS
+# ============================================================================
+# Feed
+
+# Get Nth Segment
+snippet getSegment "craft.request.getSegment()"
+  {{ craft.request.getSegment(${1}) }}
+
+# Get First Segment
+snippet getFirstSegment "craft.request.getFirstSegment()"
+  {{ craft.request.getFirstSegment() }}
+
+# Get Last Segment
+snippet getLastSegment "craft.request.getLastSegment()"
+  {{ craft.request.getLastSegment() }}
+
+# Get Page Number
+snippet getPageNum "craft.request.getPageNum()"
+  {{ craft.request.getPageNum() }}
+
+# Get Full Path
+snippet getPath "craft.request.getPath()"
+  {{ craft.request.getPath() }}
+
+# Include
+# Matrix
+
+# Pagination
+snippet paginate "Pagination tag {% paginate %}"
+  {% paginate craft.entries.section('${1}').limit(${2}) as pageInfo, pageEntries %}
+
+  {% for entry in pageEntries %}
+    {{ entry.title }}
+    {{ entry.body }}
+  {% endfor %}
+
+  {% if pageInfo.prevUrl %}<a href="{{ pageInfo.prevUrl }}">Previous Page</a>{% endif %}
+  {% if pageInfo.nextUrl %}<a href="{{ pageInfo.nextUrl }}">Next Page</a>{% endif %}
+
+# Request
+
+# Require Login
+# This tag will ensure that the user is logged in. If they aren’t, they will be redirected to the Login page, and returned to the original page after successfully logging in.
+snippet requireLogin " Require Login"
+  {% requireLogin %}
+
+# Require Permission
+# This tag will ensure that the current user is logged in with an account that has a given permission.
+snippet requirePermission
+  {# Refernece: https://craftcms.com/docs/templating/requirepermission #}
+  {% requirePermission "${1}" %}
+
+# Redirect
+snippet redirect "{% redirect %}"
+ {% redirect "${1}" %}
+
+# Switch
+snippet sw "{% switch %}
+  {% switch entry.type %}
+
+    {% case "${1}" %}
+        {{ ${2} }}
+
+    {% case "${3}" %}
+        {{ ${4} }}
+
+    {% default %}
+        {{ ${5} }}
+
+  {% endswitch %}
+
+# QUERYING ELEMENTS
+# ============================================================================
+# Assets
+snippet assets "Output assets field content"
+  {% for asset in entry.assetsField %}
+    {{ asset.url }}
+  {% endfor %}
+
+snippet assets "The craft.assets loop"
+  {% for image in craft.assets.kind('image') %}
+    {{ image.getUrl('thumb') }}
+  {% endfor %}
+
+# Categories
+snippet cat "carft.categories loop"
+  {% for cat in craft.categories.group('catGroupHandle') %}
+    <a href="{{ cat.url }}">{{ cat.title }}</a>
+  {% endfor %}
+
+# Entries
+snippet entries "craft.entries loop"
+  {% for entry in craft.entries.section('${1}').limit(${2}) %}
+    <a href="{{ entry.url }}">{{ entry.title }}</a>
+  {% endfor %}
+
+# Tags
+
+# Users
+
+# ADDTIONAL TAGS
+# ============================================================================
