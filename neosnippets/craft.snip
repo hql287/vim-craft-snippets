@@ -80,6 +80,7 @@ options head
   {% set promos = shuffle(homepage.promos) %}
   {% for promo in promos %}
     {{ promo.title }}
+  {% endfor %}
 
 # FILTERS
 # ============================================================================
@@ -107,10 +108,10 @@ options head
   {{ "foo bar"|pascal }}
   {# Outputs: FooBar #}
 
-snippet md
+snippet markdown
 abbr    Processes a string with Markdown.
 options head
-  {{ content|md }}
+  {{ content|markdown }}
 
 snippet replace
 abbr    Replaces parts of a string with other things.
@@ -123,9 +124,8 @@ options head
   }) }}
 
 snippet currency
-abbr    currency( currency, stripZeroCents )
+abbr    Formats a number with a given currency according to the user’s preferred language
 options head
-  {# Formats a number with a given currency according to the user’s preferred language #}.
   {{ 1000000|currency('USD') }}
   {# Return $1,000,000.00 #}
 
@@ -150,32 +150,32 @@ options head
 # ============================================================================
 
 # Get Nth Segment
-snippet getSegment
-abbr    craft.request.getSegment()
+snippet getNthSegment
+abbr    getSegment
 options head
   {{ craft.request.getSegment(${1}) }}
 
 # Get First Segment
 snippet getFirstSegment
-abbr    craft.request.getFirstSegment()
+abbr    getFirstSegment
 options head
   {{ craft.request.getFirstSegment() }}
 
 # Get Last Segment
 snippet getLastSegment
-abbr    craft.request.getLastSegment()
+abbr    getLastSegment
 options head
   {{ craft.request.getLastSegment() }}
 
 # Get Page Number
 snippet getPageNum
-abbr    craft.request.getPageNum()
+abbr    getPageNum
 options head
   {{ craft.request.getPageNum() }}
 
 # Get Full Path
 snippet getPath
-abbr    craft.request.getPath()
+abbr    getPath
 options head
   {{ craft.request.getPath() }}
 
@@ -217,7 +217,7 @@ options head
  {% redirect "${1}" %}
 
 # Switch
-snippet sw
+snippet switch
 abbr    {% switch %}
 options head
   {% switch entry.type %}
