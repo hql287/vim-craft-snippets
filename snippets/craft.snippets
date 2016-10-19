@@ -1,4 +1,4 @@
-# Craft snippets
+# Craft CMS Snippets
 # Maintainer: Quoc Hung Le <lequochung@me.com>
 
 # GLOBAL VARIABLES
@@ -96,20 +96,20 @@ snippet currency "currency( currency, stripZeroCents )"
   {{ 1000000|currency('USD', true) }}
   {# Return $1,000,000 #}
 
-snippet withou "Returns an array without the specified element(s)."
+snippet without "Returns an array without the specified element(s)."
   {% set entries = craft.entries.section('articles').limit(3).find %}
   {% set firstEntry = entries[0] %}
   {% set remainingEntries = entries|without(firstEntry) %}
 
-snippet datetime
-snippet filesize
-snippet filter
-snippet group
+# TODOS
+# snippet datetime
+# snippet filesize
+# snippet filter
+# snippet group
 
 
 # TEMPLATES TAGS
 # ============================================================================
-# Feed
 
 # Get Nth Segment
 snippet getSegment "craft.request.getSegment()"
@@ -131,8 +131,6 @@ snippet getPageNum "craft.request.getPageNum()"
 snippet getPath "craft.request.getPath()"
   {{ craft.request.getPath() }}
 
-# Include
-# Matrix
 
 # Pagination
 snippet paginate "Pagination tag {% paginate %}"
@@ -146,16 +144,14 @@ snippet paginate "Pagination tag {% paginate %}"
   {% if pageInfo.prevUrl %}<a href="{{ pageInfo.prevUrl }}">Previous Page</a>{% endif %}
   {% if pageInfo.nextUrl %}<a href="{{ pageInfo.nextUrl }}">Next Page</a>{% endif %}
 
-# Request
-
 # Require Login
 # This tag will ensure that the user is logged in. If they aren’t, they will be redirected to the Login page, and returned to the original page after successfully logging in.
-snippet requireLogin " Require Login"
+snippet requireLogin "Require Login"
   {% requireLogin %}
 
 # Require Permission
 # This tag will ensure that the current user is logged in with an account that has a given permission.
-snippet requirePermission
+snippet requirePermission "Require Permission"
   {# Refernece: https://craftcms.com/docs/templating/requirepermission #}
   {% requirePermission "${1}" %}
 
@@ -164,7 +160,7 @@ snippet redirect "{% redirect %}"
  {% redirect "${1}" %}
 
 # Switch
-snippet sw "{% switch %}
+snippet sw "{% switch %}"
   {% switch entry.type %}
 
     {% case "${1}" %}
@@ -177,6 +173,12 @@ snippet sw "{% switch %}
         {{ ${5} }}
 
   {% endswitch %}
+
+# TODOS
+# Feed
+# Include
+# Matrix
+# Request
 
 # QUERYING ELEMENTS
 # ============================================================================
@@ -203,8 +205,8 @@ snippet entries "craft.entries loop"
     <a href="{{ entry.url }}">{{ entry.title }}</a>
   {% endfor %}
 
+# TODOS
 # Tags
-
 # Users
 
 # ADDTIONAL TAGS
