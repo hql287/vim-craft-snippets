@@ -2,7 +2,7 @@
 This repository contains most of frequently used code snippets during [Craft CMS](https://craftcms.com/) development. 
 Since I use Neovim, this snippet is compatible with [neosnippet](https://github.com/Shougo/neosnippet.vim) with minimal configurations
 
-![](https://d17oy1vhnax1f7.cloudfront.net/items/262f1Y2v2L1I08270a10/craftcmssnippets.gif?v=d86b2ed5)
+![Demo](demo.gif)
 
 ### Installation
 
