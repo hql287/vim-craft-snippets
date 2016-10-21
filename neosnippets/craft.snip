@@ -151,6 +151,24 @@ snippet getPath
 abbr    getPath
   {{ craft.request.getPath() }}
 
+# Matrix
+snippet matrix
+abbr Output Matrix blocks using switch
+  {% for block in entry.${1:matrixField} %}
+    {% switch block.type %}
+
+      {% case "${2:text}" %}
+        {{ block.${3:textField} }}
+
+      {% case "${4:image}" %}
+        {{ block.${5:imageField}[0].getImg() }}
+
+      {% default %}
+        ${6}
+
+    {% endswitch %}
+  {% endfor %}
+
 # Pagination
 snippet paginate
 abbr    Pagination tag {% paginate %}
@@ -187,7 +205,6 @@ abbr    {% redirect %}
 # Switch
 snippet switch
 abbr    {% switch %}
-options head
   {% switch entry.type %}
 
     {% case "${1}" %}
@@ -201,10 +218,10 @@ options head
 
   {% endswitch %}
 
+
 # TODOS
 # Feed
 # Include
-# Matrix
 # Request
 
 # QUERYING ELEMENTS
