@@ -274,6 +274,10 @@ endsnippet
 #
 # ADDTIONAL TAGS
 # ============================================================================
-snippet postdate "Entry posted date"
+snippet postdate "Entry posted date Vi Format"
   {{ entry.postDate.format('F d, Y') }}
+endsnippet
+
+snippet postdate "Entry posted date En Format"
+  {{ entry.postDate.format('d.n.Y') }}
 endsnippet
