@@ -3,6 +3,8 @@
 This repository contains most of frequently used code snippets during [Craft CMS](https://craftcms.com/) development.
 It is compatible with [Utilsnips](https://github.com/SirVer/ultisnips) and [neosnippet](https://github.com/Shougo/neosnippet.vim) (with minimal configuration).
 
+![Demo](demo.gif)
+
 ### Installation
 This repo is compatible with most Vim Plugins Manager. Since I use [Vim Plug](https://github.com/junegunn/vim-plug), my configuration looks like this:
 
@@ -28,8 +30,8 @@ Plug 'hungle88/vim-craft-snippets'                            " Craft CMS snippe
 ...
 ```
 ### Configurations
-Since Craft templates use `twig` which has its own snippets that come with neosnippet-snippets by default, we need to
-tell neosnippet-snippets to look for `craft.snippets` when editing `*.twig` templates by adding these lines to your vimrc
+Since Craft templates use `twig` which has its own snippets that come with neosnippet-snippets and vim-snippets by default, we need to
+tell vim to look for `craft.snippets` when editing `*.twig` templates by adding these lines to your vimrc
 
 **Utilsnips**
 ```
