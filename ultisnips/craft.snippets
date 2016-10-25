@@ -181,8 +181,23 @@ snippet paginate "Pagination tag {% paginate %}"
 		{{ entry.body }}
 	{% endfor %}
 
-	{% if pageInfo.prevUrl %}<a href="{{ pageInfo.prevUrl }}">Previous Page</a>{% endif %}
-	{% if pageInfo.nextUrl %}<a href="{{ pageInfo.nextUrl }}">Next Page</a>{% endif %}
+  {% if pageInfo.prevUrl %}
+    <a href="{{ pageInfo.prevUrl }}">Previous</a>
+  {% endif %}
+
+  {% for page, url in pageInfo.getPrevUrls() %}
+    <a href="{{ url }}">{{ page }}</a>
+  {% endfor %}
+
+  <a href="#" class="active"> {{ pageInfo.currentPage }}</a>
+
+  {% for page, url in pageInfo.getNextUrls() %}
+    <a href="{{ url }}">{{ page }}</a>
+  {% endfor %}
+
+  {% if pageInfo.nextUrl %}
+    <a href="{{ pageInfo.nextUrl }}">Next</a>
+  {% endif %}
 endsnippet
 
 # Require Login
@@ -259,3 +274,6 @@ endsnippet
 #
 # ADDTIONAL TAGS
 # ============================================================================
+snippet postdate "Entry posted date"
+  {{ entry.postDate.format('F d, Y') }}
+endsnippet
