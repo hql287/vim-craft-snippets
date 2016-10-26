@@ -248,14 +248,14 @@ snippet assetsField "Output assets field content"
 	{% endfor %}
 endsnippet
 
-snippet assetsLoop "The craft.assets loop"
+snippet assetsLoop "craft.assets loop"
 	{% for image in craft.assets.kind('image') %}
 		{{ image.getUrl('thumb') }}
 	{% endfor %}
 endsnippet
 
 # Categories
-snippet categories "carft.categories loop"
+snippet categories "craft.categories loop"
 	{% for cat in craft.categories.group('${1:catGroupHandle}') %}
 		<a href="{{ cat.url }}">{{ cat.title }}</a>
 	{% endfor %}
@@ -266,6 +266,15 @@ snippet entries "craft.entries loop"
 	{% for entry in craft.entries.section('${1:news}').limit(${2:10}) %}
 		<a href="{{ entry.url }}">{{ entry.title }}</a>
 	{% endfor %}
+endsnippet
+
+# Section
+snippet secId "Get section by Id"
+	craft.sections.getSectionById(${1:sectionId})
+endsnippet
+
+snippet secHandle "Get section by handle"
+	craft.sections.getSectionByHandle(${1:handle})
 endsnippet
 
 # TODOS
